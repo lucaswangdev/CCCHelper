@@ -1,0 +1,16 @@
+PODS:
+  - CCCHelper (0.0.1)
+
+DEPENDENCIES:
+  - CCCHelper (from `../CCCHelper`)
+
+EXTERNAL SOURCES:
+  CCCHelper:
+    :path: "../CCCHelper"
+
+SPEC CHECKSUMS:
+  CCCHelper: 4084f8924f0d3c330edd9c77bc6a685ec89e3820
+
+PODFILE CHECKSUM: 2e2e52ff7d1e9383354753420ab49b7745031de6
+
+COCOAPODS: 1.14.3
