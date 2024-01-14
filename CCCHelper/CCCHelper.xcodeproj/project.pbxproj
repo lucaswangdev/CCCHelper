@@ -6,6 +6,20 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		E2466B322B5416E400FD6F2D /* CCCHelper-Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E2466B352B5416E500FD6F2D /* Build configuration list for PBXAggregateTarget "CCCHelper-Universal" */;
+			buildPhases = (
+				E2466B362B54171600FD6F2D /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "CCCHelper-Universal";
+			productName = "CCCHelper-Universal";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		E2466AF52B53F2AC00FD6F2D /* CCCHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = E2466AF42B53F2AC00FD6F2D /* CCCHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E2466B222B53F45400FD6F2D /* Base.m in Sources */ = {isa = PBXBuildFile; fileRef = E2466B212B53F45400FD6F2D /* Base.m */; };
@@ -142,6 +156,9 @@
 					E2466AF02B53F2AC00FD6F2D = {
 						CreatedOnToolsVersion = 15.2;
 					};
+					E2466B322B5416E400FD6F2D = {
+						CreatedOnToolsVersion = 15.2;
+					};
 				};
 			};
 			buildConfigurationList = E2466AEB2B53F2AC00FD6F2D /* Build configuration list for PBXProject "CCCHelper" */;
@@ -158,6 +175,7 @@
 			projectRoot = "";
 			targets = (
 				E2466AF02B53F2AC00FD6F2D /* CCCHelper */,
+				E2466B322B5416E400FD6F2D /* CCCHelper-Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -194,6 +212,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E2466B362B54171600FD6F2D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# Setup some constants for use later on.\nFRAMEWORK_NAME=\"CCCHelper\"\nUNIVERSAL_OUTPUTFOLDER=\"${BUILD_DIR}/${CONFIGURATION}-universal\"\n\n# Create directory for universal\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Build Device and Simulator versions\nxcodebuild -target \"${FRAMEWORK_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# Combine both binaries (device and simulator) into one\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n#Copy the framework structure from iphoneos to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Replace the binary in the copied framework with the new combined binary\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -391,6 +426,22 @@
 			};
 			name = Release;
 		};
+		E2466B332B5416E500FD6F2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E2466B342B5416E500FD6F2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -408,6 +459,15 @@
 			buildConfigurations = (
 				E2466AF92B53F2AC00FD6F2D /* Debug */,
 				E2466AFA2B53F2AC00FD6F2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2466B352B5416E500FD6F2D /* Build configuration list for PBXAggregateTarget "CCCHelper-Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2466B332B5416E500FD6F2D /* Debug */,
+				E2466B342B5416E500FD6F2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
