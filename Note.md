@@ -250,3 +250,13 @@ pod install
 ```
 手动删除 Derived Data 目录：~/Library/Developer/Xcode/DerivedData/。
 ```
+
+# 参考链接
+https://blog.csdn.net/xinshou_caizhu/article/details/89641585
+https://github.com/SyKingW/XQDemoCocoapodsFramework
+https://juejin.cn/post/6955401530182729735
+https://juejin.cn/post/6955401530182729735
+https://juejin.cn/post/7038799716871569422
+https://juejin.cn/post/7232187022398898234
+https://cloud.tencent.com/developer/article/1192814
+https://www.cnblogs.com/qizhuo/p/9101650.html
